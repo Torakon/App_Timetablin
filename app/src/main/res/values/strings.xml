@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Timetablin</string>
+    <string name="Day1">Monday</string>
+    <string name="Day2">Tuesday</string>
+    <string name="nothingText">No Lectures Scheduled for Today</string>
+    <string name="welcomeTitle">Welcome</string>
+    <string name="Day3">Wednesday</string>
+    <string name="Day4">Thursday</string>
+    <string name="Day5">Friday</string>
+    <string name="Day6">Saturday</string>
+    <string name="weekendText">Nothing Scheduled for Today</string>
+    <string name="title_activity_event_addition">EventAddition</string>
+    <string name="calStart">First Session</string>
+    <string name="Day7">Sunday</string>
+    <string name="calBtnDesc">Date Selection</string>
+    <string name="calEnd">Last Session</string>
+    <string name="calHint">DD/MM/YYYY</string>
+    <string name="titleHint">Session Title</string>
+    <string name="roomHint">Room</string>
+    <string name="campusSelect">Campus</string>
+    <string name="catText">Category</string>
+    <string name="retBtnDesc" />
+    <string name="timeHint">00:00</string>
+    <string name="timeStartEnd">Time</string>
+    <string name="dashText">-</string>
+    <string name="addBtnDesc">Add an event</string>
+    <string name="commentDesc">Comments</string>
+    <string name="delBtnDesc">DeleteEvent</string>
+    <string name="prefBtnDesc">Preferences</string>
+    <string name="title_activity_preference">Preferences</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="prefTitle">Settings</string>
+    <string name="darkTitle">Dark theme</string>
+</resources>

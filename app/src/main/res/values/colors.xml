@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#9B4FC4</color>
+    <color name="colorAccent">#000000</color>
+    <color name="colorTextPrimary">#000000</color>
+    <color name="colorTextSecondary">#000000</color>
+    <color name="nothingBackground">#ADE2E2E2</color>
+    <color name="activityTitle">#FFFFFF</color>
+    <color name="colorGuestBack">#77DD77</color>
+    <color name="colorLectureback">#AEC6CF</color>
+    <color name="colorSocietyBack">#FFD1DC</color>
+</resources>

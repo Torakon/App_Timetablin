@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="campusEntries">
+        <item>City</item>
+        <item>Eastbourne</item>
+        <item>Falmer</item>
+        <item>Moulsecoomb</item>
+    </string-array>
+    <string-array name="moulBuilding">
+        <item>Advanced Engineering</item>
+        <item>Cockcroft</item>
+        <item>Heavy Engineering</item>
+        <item>Huxley</item>
+        <item>Watts</item>
+    </string-array>
+    <string-array name="granBuilding">
+        <item>Dorset Place</item>
+        <item>Grand Parade</item>
+        <item>Pavillion Parade</item>
+    </string-array>
+    <string-array name="falmBuilding">
+        <item>Bevendean House</item>
+        <item>Checkland</item>
+        <item>Dallington House</item>
+        <item>Falmer Sports Centre</item>
+        <item>Ringmer House</item>
+        <item>Sports Pavillion</item>
+        <item>Watson</item>
+        <item>Westlain House</item>
+    </string-array>
+    <string-array name="eastBuilding">
+        <item>Aldro</item>
+        <item>Greynore</item>
+        <item>Greynore 2</item>
+        <item>Hillbrow</item>
+        <item>Queenwood</item>
+        <item>Robert Dodd</item>
+        <item>Welkin</item>
+    </string-array>
+    <string-array name="noCampus">
+        <item>Please select a Campus</item>
+    </string-array>
+    <string-array name="catList">
+        <item>Guest Talk</item>
+        <item>Lecture</item>
+        <item>Society</item>
+    </string-array>
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+</resources>
