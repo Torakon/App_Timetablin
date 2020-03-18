@@ -1,9 +1,11 @@
 package com.example.timetablin;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity { //TODO: Look into removing
     private ArrayList<Lecture> saveData = new ArrayList<>();
     private LectureStringify ts = new LectureStringify();
     private String fileName = "events";
+    private SharedPreferences pref;
 
     /*
      * Deals with the launch of the Activity. In this case it loads saved entries, if the relevant
@@ -41,6 +44,17 @@ public class MainActivity extends AppCompatActivity { //TODO: Look into removing
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Checks for saved theme settings
+        pref = getSharedPreferences("TimetablinUPref", MODE_PRIVATE);
+        if (pref.contains("dark")) {
+            Boolean dCheck = pref.getBoolean("dark",false);
+            if (dCheck) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        }
 
         //load input
         String toLoad = "";
@@ -73,6 +87,8 @@ public class MainActivity extends AppCompatActivity { //TODO: Look into removing
         final ImageButton btnAdd = findViewById(R.id.addEntry);
         final ImageButton btnPref = findViewById(R.id.pref);
 
+        //btnAdd.setBackgroundColor(toRGB("FFFFFF"));
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +118,14 @@ public class MainActivity extends AppCompatActivity { //TODO: Look into removing
         } catch (IOException e) {
             System.out.println("IOException in writing to file");
         }
+    }
+
+    public int toRGB(String sCol) {
+        int colorConvert = Integer.parseInt(sCol, 16);
+        int r = (colorConvert >> 16) & 0xFF;
+        int g = (colorConvert >> 8) & 0xFF;
+        int b = (colorConvert >> 0) & 0xFF;
+        return Color.rgb(r, g, b);
     }
 
     /*
@@ -140,6 +164,7 @@ public class MainActivity extends AppCompatActivity { //TODO: Look into removing
             }
         }
     }
+
     public void removeEntryFromView(Lecture entry) {
         View oldEntry = findViewById(entry.getId());
         ViewGroup parent = (ViewGroup) oldEntry.getParent();
@@ -167,6 +192,12 @@ public class MainActivity extends AppCompatActivity { //TODO: Look into removing
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View eventList = inflater.inflate(R.layout.event, null, false); //inflates event.xml to add data and insert into view
         eventList.setId(entry.getId());
+        LinearLayout.LayoutParams margin = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        margin.setMargins(0,10,0,0);
+        eventList.setLayoutParams(margin);
         TextView title = eventList.findViewById(R.id.lecTitle);
         TextView location = eventList.findViewById(R.id.lecLocation);
         TextView timeStart = eventList.findViewById(R.id.lecTime);
@@ -179,17 +210,33 @@ public class MainActivity extends AppCompatActivity { //TODO: Look into removing
         timeStart.setText(entry.getTime(false));
         timeEnd.setText(entry.getTime(true));
 
+        String colorSelect;
         switch(entry.getCategory()) { //switch to set background colour based on category
             case 0 :
-                eventList.setBackgroundColor(getColor(R.color.colorGuestBack));
+                if (pref.contains("guestColor")) {
+                    colorSelect = pref.getString("guestColor", "FF00FF");
+                    eventList.setBackgroundColor(toRGB(colorSelect));
+                } else {
+                    eventList.setBackgroundColor(getColor(R.color.colorGuestBack));
+                }
                 category.setText("G");
                 break;
             case 1 :
-                eventList.setBackgroundColor(getColor(R.color.colorLectureback));
+                if (pref.contains("lectureColor")) {
+                    colorSelect = pref.getString("lectureColor", "FF00FF");
+                    eventList.setBackgroundColor(toRGB(colorSelect));
+                } else {
+                    eventList.setBackgroundColor(getColor(R.color.colorLectureback));
+                }
                 category.setText("L");
                 break;
             case 2 :
-                eventList.setBackgroundColor(getColor(R.color.colorSocietyBack));
+                if (pref.contains("societyColor")) {
+                    colorSelect = pref.getString("societyColor", "FF00FF");
+                    eventList.setBackgroundColor(toRGB(colorSelect));
+                } else {
+                    eventList.setBackgroundColor(getColor(R.color.colorSocietyBack));
+                }
                 category.setText("S");
                 break;
             default :

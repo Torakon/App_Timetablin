@@ -4,7 +4,9 @@
     android:id="@+id/lectureBox"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_y="0dp"
     android:orientation="horizontal"
+    android:paddingTop="0dp"
     android:visibility="visible">
 
     <LinearLayout
@@ -48,8 +50,9 @@
             android:id="@+id/lecLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
-            android:textColor="@color/colorTextPrimary" />
+            android:paddingTop="10dp"
+            android:textAlignment="viewEnd"
+            android:textStyle="italic" />
     </LinearLayout>
 
     <TextView

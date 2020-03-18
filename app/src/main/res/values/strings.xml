@@ -45,4 +45,5 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="prefTitle">Settings</string>
     <string name="darkTitle">Dark theme</string>
+    <string name="textColor">Colour Select</string>
 </resources>
