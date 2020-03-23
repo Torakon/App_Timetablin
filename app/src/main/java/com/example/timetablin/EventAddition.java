@@ -16,7 +16,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
@@ -91,7 +94,7 @@ public class EventAddition extends AppCompatActivity {
 
                     if (mon > 12) { mon = 12; }
                     c.set(Calendar.MONTH, mon - 1);
-                    if (year < c.get(Calendar.YEAR)) { year = c.get(Calendar.YEAR); }
+                    if (year < c.get(Calendar.YEAR) - 1) { year = c.get(Calendar.YEAR) - 1; }
                     else if (year > c.get(Calendar.YEAR) + 1) { year = c.get(Calendar.YEAR) + 1; }
                     c.set(Calendar.YEAR, year);
                     if (day > c.getActualMaximum(Calendar.DATE)) { day = c.getActualMaximum(Calendar.DATE); }
@@ -131,7 +134,7 @@ public class EventAddition extends AppCompatActivity {
 
                     if (mon > 12) { mon = 12; }
                     c.set(Calendar.MONTH, mon - 1);
-                    if (year < c.get(Calendar.YEAR)) { year = c.get(Calendar.YEAR); }
+                    if (year < c.get(Calendar.YEAR) - 1) { year = c.get(Calendar.YEAR) - 1; }
                     else if (year > c.get(Calendar.YEAR) + 1) { year = c.get(Calendar.YEAR) + 1; }
                     c.set(Calendar.YEAR, year);
                     if (day > c.getActualMaximum(Calendar.DATE)) { day = c.getActualMaximum(Calendar.DATE); }
@@ -276,6 +279,42 @@ public class EventAddition extends AppCompatActivity {
         } else if ((sTimeCheck.charAt(2) != ':') || (eTimeCheck.charAt(2) != ':')) {
             Toast.makeText(getApplicationContext(), "Please check your Time fields.", Toast.LENGTH_SHORT).show();
             return false;
+        }
+        if (!endDateAfter(sDayCheck, eDayCheck)) {
+            Toast.makeText(getApplicationContext(), "End date must be on or after the Start date.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (!endTimeAfter(sTimeCheck, eTimeCheck)) {
+            Toast.makeText(getApplicationContext(), "End time must be on or after the Start time.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    boolean endDateAfter(String start, String end) {
+        SimpleDateFormat ddMMyyyy = new SimpleDateFormat("dd/MM/yyyy", Locale.UK);
+        Calendar c = Calendar.getInstance();
+        try {
+            Date startDate = ddMMyyyy.parse(start);
+            Date endDate = ddMMyyyy.parse(end);
+            c.setTime(startDate);
+            return startDate.compareTo(endDate) <= 0;
+        } catch (ParseException e) {
+            System.out.println("Error occurred parsing Date");
+        }
+        return true;
+    }
+
+    boolean endTimeAfter(String start, String end) {
+        SimpleDateFormat HHmm = new SimpleDateFormat("HH:mm", Locale.UK);
+        Calendar c = Calendar.getInstance();
+        try {
+            Date startTime = HHmm.parse(start);
+            Date endTime = HHmm.parse(end);
+            c.setTime(startTime);
+            return startTime.compareTo(endTime) <= 0;
+        } catch (ParseException e) {
+            System.out.println("Error occurred parsing Time");
         }
         return true;
     }

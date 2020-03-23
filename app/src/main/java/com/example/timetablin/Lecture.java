@@ -80,7 +80,6 @@ public class Lecture implements Parcelable {
         Calendar c = Calendar.getInstance();
         try {
             Date result = ddMMyyyy.parse(startDate);
-            assert result!= null;
             c.setTime(result);
         } catch (ParseException e) {
             System.out.println("Error occurred parsing Date");
@@ -99,7 +98,7 @@ public class Lecture implements Parcelable {
         try {
             Date thisTime = HHmm.parse(startTime);
             Date otherTime = HHmm.parse(other);
-            return (thisTime.compareTo(otherTime)>0) ? false : true;
+            return thisTime.compareTo(otherTime) <= 0;
         } catch (ParseException e) {
             System.out.println("Error occurred parsing Time");
         }
