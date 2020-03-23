@@ -48,4 +48,5 @@
     <string name="textColor">Colour Select</string>
     <string name="hashtag">#</string>
     <string name="colorHint">000000</string>
+    <string name="noteHint">Add a Note...</string>
 </resources>

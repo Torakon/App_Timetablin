@@ -24,7 +24,7 @@ import java.util.Locale;
 
 public class EventEdit extends AppCompatActivity {
     private EditText titleView, sDayView, eDayView, roomView;
-    private TextView sTimeView, eTimeView;
+    private TextView sTimeView, eTimeView, noteView;
     private Spinner campusView, buildingView, catView;
     private Lecture entry;
 
@@ -48,6 +48,7 @@ public class EventEdit extends AppCompatActivity {
         buildingView = findViewById(R.id.buildingSpin);
         roomView = findViewById(R.id.enterRoom);
         catView = findViewById(R.id.catSpin);
+        noteView = findViewById(R.id.enterNote);
 
         ImageButton btnStart = findViewById(R.id.pickStartDate);
         ImageButton btnEnd = findViewById(R.id.pickEndDate);
@@ -110,7 +111,7 @@ public class EventEdit extends AppCompatActivity {
 
                     if (mon > 12) { mon = 12; }
                     c.set(Calendar.MONTH, mon - 1);
-                    if (year < c.get(Calendar.YEAR)) { year = c.get(Calendar.YEAR); }
+                    if (year < c.get(Calendar.YEAR) - 1) { year = c.get(Calendar.YEAR) - 1; }
                     else if (year > c.get(Calendar.YEAR) + 1) { year = c.get(Calendar.YEAR) + 1; }
                     c.set(Calendar.YEAR, year);
                     if (day > c.getActualMaximum(Calendar.DATE)) { day = c.getActualMaximum(Calendar.DATE); }
@@ -120,9 +121,7 @@ public class EventEdit extends AppCompatActivity {
                             placeholder.substring(4, 8));
                     sDayView.setText(placeholder);
                 }
-                System.out.println("back" + start + " " + before + " " + count);
                 if ((edit.length() == 2 || edit.length() == 5) && (before != 1)) {
-                    System.out.println("auto" + start + " " + before + " " + count);
                     sDayView.append("/");
                 }
             }
@@ -150,7 +149,7 @@ public class EventEdit extends AppCompatActivity {
 
                     if (mon > 12) { mon = 12; }
                     c.set(Calendar.MONTH, mon - 1);
-                    if (year < c.get(Calendar.YEAR)) { year = c.get(Calendar.YEAR); }
+                    if (year < c.get(Calendar.YEAR) - 1) { year = c.get(Calendar.YEAR) - 1; }
                     else if (year > c.get(Calendar.YEAR) + 1) { year = c.get(Calendar.YEAR) + 1; }
                     c.set(Calendar.YEAR, year);
                     if (day > c.getActualMaximum(Calendar.DATE)) { day = c.getActualMaximum(Calendar.DATE); }
@@ -160,9 +159,7 @@ public class EventEdit extends AppCompatActivity {
                             placeholder.substring(4, 8));
                     eDayView.setText(placeholder);
                 }
-                System.out.println("back" + start + " " + before + " " + count);
                 if ((edit.length() == 2 || edit.length() == 5) && (before != 1)) {
-                    System.out.println("auto" + start + " " + before + " " + count);
                     eDayView.append("/");
                 }
             }
@@ -238,6 +235,7 @@ public class EventEdit extends AppCompatActivity {
         entry.setBuilding(buildingView.getSelectedItem().toString());
         entry.setRoom(roomView.getText().toString());
         entry.setCategory(catView.getSelectedItemPosition());
+        entry.setNote(noteView.getText().toString());
 
         returnIntent.putExtra("data", entry); //as id is only set on creation, no need to alter based on resultCode
         setResult(resultCode, returnIntent);
@@ -255,6 +253,7 @@ public class EventEdit extends AppCompatActivity {
         eDayView.setText(entry.getDate(true));
         sTimeView.setText(entry.getTime(false));
         eTimeView.setText(entry.getTime(true));
+        noteView.setText(entry.getNote());
 
         ArrayAdapter<CharSequence> newSpin;
         switch (entry.getCampus()) {

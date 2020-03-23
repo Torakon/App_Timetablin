@@ -15,7 +15,8 @@ class LectureStringify {
         for(Lecture entr : saveData) {
             result.append(entr.getTitle()).append("¬").append(entr.getDate(false)).append("¬").append(entr.getDate(true)).append("¬")
                     .append(entr.getTime(false)).append("¬").append(entr.getTime(true)).append("¬").append(entr.getCampus()).append("¬")
-                    .append(entr.getBuilding()).append("¬").append(entr.getRoom()).append("¬").append(entr.getCategory()).append("¬").append(entr.getId()).append("¬");
+                    .append(entr.getBuilding()).append("¬").append(entr.getRoom()).append("¬").append(entr.getCategory()).append("¬").append(entr.getNote())
+                    .append("¬").append(entr.getId()).append("¬");
         }
     return result.toString();
     }
@@ -29,20 +30,20 @@ class LectureStringify {
      */
     ArrayList<Lecture> stringToArray(String saveData) {
         ArrayList<Lecture> result = new ArrayList<>();
-        String sTitle, sSDate, sEDate, sSTime, sETime, sCampus, sBuilding, sRoom, sCategory, sId;
-        sTitle = sSDate = sEDate = sSTime = sETime = sCampus = sBuilding = sRoom = sCategory = sId = "";
+        String sTitle, sSDate, sEDate, sSTime, sETime, sCampus, sBuilding, sRoom, sCategory, sId, sNote;
+        sTitle = sSDate = sEDate = sSTime = sETime = sCampus = sBuilding = sRoom = sCategory = sNote = sId = "";
         int vCount = 0;
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < saveData.length(); i++) {
             if (saveData.charAt(i) == '¬') {
                 vCount++;
                 sb.setLength(0);
-                if (vCount == 10) {
+                if (vCount == 11) {
                     vCount = 0;
                     int iCategory = Integer.parseInt(sCategory);
                     int iId = Integer.parseInt(sId);
-                    result.add(new Lecture(sTitle, sSDate, sEDate, sSTime, sETime, sCampus, sBuilding, sRoom, iCategory, iId));
-                    sTitle = sSDate = sEDate = sSTime = sETime = sCampus = sBuilding = sRoom = sCategory = sId = "";
+                    result.add(new Lecture(sTitle, sSDate, sEDate, sSTime, sETime, sCampus, sBuilding, sRoom, iCategory, sNote, iId));
+                    sTitle = sSDate = sEDate = sSTime = sETime = sCampus = sBuilding = sRoom = sCategory = sNote = sId = "";
                 }
             } else {
                 switch (vCount) {
@@ -73,7 +74,10 @@ class LectureStringify {
                     case 8:
                         sCategory = sb.append(saveData.charAt(i)).toString();
                         break;
-                    case 9:
+                    case 9 :
+                        sNote = sb.append(saveData.charAt(i)).toString();
+                        break;
+                    case 10:
                         sId = sb.append(saveData.charAt(i)).toString();
                         break;
                     default:

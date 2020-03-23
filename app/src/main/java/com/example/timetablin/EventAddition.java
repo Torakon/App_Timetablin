@@ -24,7 +24,7 @@ import java.util.Locale;
 import java.util.Random;
 
 public class EventAddition extends AppCompatActivity {
-    private EditText titleView, sDayView, eDayView, roomView;
+    private EditText titleView, sDayView, eDayView, roomView, noteView;
     private TextView sTimeView, eTimeView;
     private Spinner campusView, buildingView, catView;
 
@@ -52,6 +52,7 @@ public class EventAddition extends AppCompatActivity {
         buildingView = findViewById(R.id.buildingSpin);
         roomView = findViewById(R.id.enterRoom);
         catView = findViewById(R.id.catSpin);
+        noteView = findViewById(R.id.enterNote);
         //TODO: think about adding notes
         //TODO: look into implementing map functionality -- no user interaction, just display location based on location input?
 
@@ -104,9 +105,7 @@ public class EventAddition extends AppCompatActivity {
                             placeholder.substring(4, 8));
                     sDayView.setText(placeholder);
                 }
-                System.out.println("back" + start + " " + before + " " + count);
                 if ((edit.length() == 2 || edit.length() == 5) && (before != 1)) {
-                    System.out.println("auto" + start + " " + before + " " + count);
                     sDayView.append("/");
                 }
             }
@@ -143,10 +142,8 @@ public class EventAddition extends AppCompatActivity {
                             placeholder.substring(2, 4),
                             placeholder.substring(4, 8));
                     eDayView.setText(placeholder);
-                }
-                System.out.println("back" + start + " " + before + " " + count);
+            }
                 if ((edit.length() == 2 || edit.length() == 5) && (before != 1)) {
-                    System.out.println("auto" + start + " " + before + " " + count);
                     eDayView.append("/");
                 }
             }
@@ -216,16 +213,15 @@ public class EventAddition extends AppCompatActivity {
         String building = buildingView.getSelectedItem().toString();
         String room = roomView.getText().toString();
         int cat = catView.getSelectedItemPosition();
+        String note = noteView.getText().toString();
+
         Calendar idGen = Calendar.getInstance();
-        int idStep = idGen.get(Calendar.HOUR);
-        //String idConcat = idGen.get(Calendar.HOUR).toString();
         int id;
         id = Long.valueOf(idGen.getTimeInMillis()).intValue();
-        System.out.println("DATE IN TIME "+ Long.valueOf(idGen.getTimeInMillis()).intValue());
         //TODO: Look into making this id more unique than just a random int. add bound to make it unique? in result handling .Main?
 
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("data", new Lecture(title, sDay, eDay, sTime, eTime, campus, building, room, cat, id));
+        returnIntent.putExtra("data", new Lecture(title, sDay, eDay, sTime, eTime, campus, building, room, cat, note, id));
         setResult(RESULT_OK, returnIntent);
         finish();
     }

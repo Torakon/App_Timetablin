@@ -25,6 +25,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 //TODO: WORK ON DOCUMENTATION
@@ -231,49 +232,49 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout listDay;
         TextView nothing;
         switch(entry.getStartDay()) { //switch to determine which weekday to show event under
-            case 1 :
+            case Calendar.SUNDAY :
                 listDay = findViewById(R.id.sundayList);
                 nothing = findViewById(R.id.nothingBoxSu);
                 if (nothing.getVisibility() == View.VISIBLE) { //removes "Nothing Scheduled" TextView
                     nothing.setVisibility(View.GONE);
                 }
                 break;
-            case 2 :
+            case Calendar.MONDAY :
                 listDay = findViewById(R.id.mondayList);
                 nothing = findViewById(R.id.nothingBoxMo);
                 if (nothing.getVisibility() == View.VISIBLE) {
                     nothing.setVisibility(View.GONE);
                 }
                 break;
-            case 3 :
+            case Calendar.TUESDAY :
                 listDay = findViewById(R.id.tuesdayList);
                 nothing = findViewById(R.id.nothingBoxTu);
                 if (nothing.getVisibility() == View.VISIBLE) {
                     nothing.setVisibility(View.GONE);
                 }
                 break;
-            case 4 :
+            case Calendar.WEDNESDAY :
                 listDay = findViewById(R.id.wednesdayList);
                 nothing = findViewById(R.id.nothingBoxWe);
                 if (nothing.getVisibility() == View.VISIBLE) {
                     nothing.setVisibility(View.GONE);
                 }
                 break;
-            case 5 :
+            case Calendar.THURSDAY :
                 listDay = findViewById(R.id.thursdayList);
                 nothing = findViewById(R.id.nothingBoxTh);
                 if (nothing.getVisibility() == View.VISIBLE) {
                     nothing.setVisibility(View.GONE);
                 }
                 break;
-            case 6 :
+            case Calendar.FRIDAY :
                 listDay = findViewById(R.id.fridayList);
                 nothing = findViewById(R.id.nothingBoxFr);
                 if (nothing.getVisibility() == View.VISIBLE) {
                     nothing.setVisibility(View.GONE);
                 }
                 break;
-            case 7 :
+            case Calendar.SATURDAY :
                 listDay = findViewById(R.id.saturdayList);
                 nothing = findViewById(R.id.nothingBoxSa);
                 if (nothing.getVisibility() == View.VISIBLE) {

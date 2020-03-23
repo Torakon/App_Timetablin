@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Lecture implements Parcelable {
-    private String lecTitle, startDate, endDate, startTime, endTime, lecCampus, lecBuilding, lecRoom;
+    private String lecTitle, startDate, endDate, startTime, endTime, lecCampus, lecBuilding, lecRoom, lecNote;
     private int category, id;
 
     /*
@@ -24,9 +24,10 @@ public class Lecture implements Parcelable {
      * @param lecBuilding - User input for entry building location
      * @param lecRoom - user input for entry room location
      * @param category - id of user input for entry category
+     * @param lecNote - Notes assigned to this entry
      * @param id - id assigned to this entry
      */
-    Lecture(String lecTitle, String startDate, String endDate, String startTime, String endTime, String lecCampus, String lecBuilding, String lecRoom, int category, int id){
+    Lecture(String lecTitle, String startDate, String endDate, String startTime, String endTime, String lecCampus, String lecBuilding, String lecRoom, int category, String lecNote, int id){
         this.lecTitle = lecTitle;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -36,7 +37,9 @@ public class Lecture implements Parcelable {
         this.lecBuilding = lecBuilding;
         this.lecRoom = lecRoom;
         this.category = category;
+        this.lecNote = lecNote;
         this.id = id;
+
     }
 
     /*
@@ -68,6 +71,8 @@ public class Lecture implements Parcelable {
     void setRoom(String inputData) { this.lecRoom = inputData; }
     int getCategory(){ return category; }
     void setCategory(int inputData){ this.category = inputData; }
+    String getNote() { return lecNote; }
+    void setNote(String inputData) { this.lecNote = inputData; }
     public int getId() { return id; }
     //public void setId(int inputData) { this.id = inputData; }
 
@@ -131,6 +136,7 @@ public class Lecture implements Parcelable {
         lecBuilding = in.readString();
         lecRoom = in.readString();
         category = in.readInt();
+        lecNote = in.readString();
         id = in.readInt();
     }
 
@@ -144,6 +150,7 @@ public class Lecture implements Parcelable {
         out.writeString(lecBuilding);
         out.writeString(lecRoom);
         out.writeInt(category);
+        out.writeString(lecNote);
         out.writeInt(id);
     }
 }
