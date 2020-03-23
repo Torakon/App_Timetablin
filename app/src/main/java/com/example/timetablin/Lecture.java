@@ -69,7 +69,7 @@ public class Lecture implements Parcelable {
     int getCategory(){ return category; }
     void setCategory(int inputData){ this.category = inputData; }
     public int getId() { return id; }
-    public void setId(int inputData) { this.id = inputData; }
+    //public void setId(int inputData) { this.id = inputData; }
 
     /*
      * Parses the start day String in to a date format (dd/MM/yyyy) to calculate the day of the week
