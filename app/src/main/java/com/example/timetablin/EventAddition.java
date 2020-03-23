@@ -216,9 +216,13 @@ public class EventAddition extends AppCompatActivity {
         String building = buildingView.getSelectedItem().toString();
         String room = roomView.getText().toString();
         int cat = catView.getSelectedItemPosition();
+        Calendar idGen = Calendar.getInstance();
+        int idStep = idGen.get(Calendar.HOUR);
+        //String idConcat = idGen.get(Calendar.HOUR).toString();
         int id;
-        Random gen = new Random();
-        id = gen.nextInt(1000); //TODO: Look into making this id more unique than just a random int. add bound to make it unique? in result handling .Main?
+        id = Long.valueOf(idGen.getTimeInMillis()).intValue();
+        System.out.println("DATE IN TIME "+ Long.valueOf(idGen.getTimeInMillis()).intValue());
+        //TODO: Look into making this id more unique than just a random int. add bound to make it unique? in result handling .Main?
 
         Intent returnIntent = new Intent();
         returnIntent.putExtra("data", new Lecture(title, sDay, eDay, sTime, eTime, campus, building, room, cat, id));
