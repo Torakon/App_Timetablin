@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -14,6 +16,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Random;
 
 public class EventAddition extends AppCompatActivity {
@@ -68,6 +72,88 @@ public class EventAddition extends AppCompatActivity {
                 }
             }
         });
+
+        sDayView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String edit = sDayView.getText().toString();
+                if (edit.length() == 10 && before != 10) {
+                    Calendar c = Calendar.getInstance();
+
+                    int day = Integer.parseInt(edit.substring(0, 2));
+                    int mon = Integer.parseInt(edit.substring(3, 5));
+                    int year = Integer.parseInt(edit.substring(6, 10));
+
+                    if (mon > 12) { mon = 12; }
+                    c.set(Calendar.MONTH, mon - 1);
+                    if (year < c.get(Calendar.YEAR)) { year = c.get(Calendar.YEAR); }
+                    else if (year > c.get(Calendar.YEAR) + 1) { year = c.get(Calendar.YEAR) + 1; }
+                    c.set(Calendar.YEAR, year);
+                    if (day > c.getActualMaximum(Calendar.DATE)) { day = c.getActualMaximum(Calendar.DATE); }
+                    String placeholder = String.format(Locale.UK, "%02d%02d%02d", day, mon, year);
+                    placeholder = String.format("%s/%s/%s", placeholder.substring(0, 2),
+                            placeholder.substring(2, 4),
+                            placeholder.substring(4, 8));
+                    sDayView.setText(placeholder);
+                }
+                System.out.println("back" + start + " " + before + " " + count);
+                if ((edit.length() == 2 || edit.length() == 5) && (before != 1)) {
+                    System.out.println("auto" + start + " " + before + " " + count);
+                    sDayView.append("/");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //do nothing
+            }
+        });
+        eDayView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String edit = eDayView.getText().toString();
+                if (edit.length() == 10 && before != 10) {
+                    Calendar c = Calendar.getInstance();
+
+                    int day = Integer.parseInt(edit.substring(0, 2));
+                    int mon = Integer.parseInt(edit.substring(3, 5));
+                    int year = Integer.parseInt(edit.substring(6, 10));
+
+                    if (mon > 12) { mon = 12; }
+                    c.set(Calendar.MONTH, mon - 1);
+                    if (year < c.get(Calendar.YEAR)) { year = c.get(Calendar.YEAR); }
+                    else if (year > c.get(Calendar.YEAR) + 1) { year = c.get(Calendar.YEAR) + 1; }
+                    c.set(Calendar.YEAR, year);
+                    if (day > c.getActualMaximum(Calendar.DATE)) { day = c.getActualMaximum(Calendar.DATE); }
+                    String placeholder = String.format(Locale.UK, "%02d%02d%02d", day, mon, year);
+                    placeholder = String.format("%s/%s/%s", placeholder.substring(0, 2),
+                            placeholder.substring(2, 4),
+                            placeholder.substring(4, 8));
+                    eDayView.setText(placeholder);
+                }
+                System.out.println("back" + start + " " + before + " " + count);
+                if ((edit.length() == 2 || edit.length() == 5) && (before != 1)) {
+                    System.out.println("auto" + start + " " + before + " " + count);
+                    eDayView.append("/");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //do nothing
+            }
+        });
+
         sTimeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
