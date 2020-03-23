@@ -11,12 +11,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
 
 public class EventAddition extends AppCompatActivity {
-    private EditText titleView, sDayView, eDayView, sTimeView, eTimeView, roomView;
+    private EditText titleView, sDayView, eDayView, roomView;
+    private TextView sTimeView, eTimeView;
     private Spinner campusView, buildingView, catView;
 
     /*

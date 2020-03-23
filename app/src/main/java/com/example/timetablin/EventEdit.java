@@ -11,10 +11,12 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class EventEdit extends AppCompatActivity {
-    private EditText titleView, sDayView, eDayView, sTimeView, eTimeView, roomView;
+    private EditText titleView, sDayView, eDayView, roomView;
+    private TextView sTimeView, eTimeView;
     private Spinner campusView, buildingView, catView;
     private Lecture entry;
 
@@ -121,6 +123,7 @@ public class EventEdit extends AppCompatActivity {
                     buildingView.setSelection(newSpin.getPosition(entry.getBuilding()));
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 //do nothing

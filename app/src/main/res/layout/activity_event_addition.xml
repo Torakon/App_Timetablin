@@ -142,19 +142,19 @@
                     android:text="@string/timeStartEnd"
                     android:textAlignment="center" />
 
-                <EditText
+                <TextView
                     android:id="@+id/startTime"
                     android:layout_width="64dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_weight="0"
+                    android:background="?attr/editTextBackground"
                     android:backgroundTint="@color/colorPrimary"
-                    android:ems="5"
-                    android:hint="@string/timeHint"
-                    android:importantForAutofill="no"
-                    android:inputType="time"
-                    tools:ignore="Autofill"
-                    tools:targetApi="o" />
+                    android:maxLength="5"
+                    android:text="@string/timeHint"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/toText"
@@ -166,19 +166,19 @@
                     android:text="@string/dashText"
                     android:textAlignment="center" />
 
-                <EditText
+                <TextView
                     android:id="@+id/endTime"
                     android:layout_width="64dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="128dp"
                     android:layout_weight="0"
+                    android:background="?attr/editTextBackground"
                     android:backgroundTint="@color/colorPrimary"
-                    android:ems="5"
-                    android:hint="@string/timeHint"
-                    android:importantForAutofill="no"
-                    android:inputType="time"
-                    tools:ignore="Autofill"
-                    tools:targetApi="o" />
+                    android:maxLength="5"
+                    android:text="@string/timeHint"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 

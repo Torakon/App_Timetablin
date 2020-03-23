@@ -4,7 +4,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
@@ -39,7 +39,7 @@ public class TimeFragment extends DialogFragment implements TimePickerDialog.OnT
         String formatH = String.format(Locale.UK, "%02d", h);
         String formatM = String.format(Locale.UK,"%02d", m);
         boolean isThere = true;
-        EditText selection = null;
+        TextView selection = null;
         switch(input) {
             case 1 :
                 selection = getActivity().findViewById(R.id.startTime);
