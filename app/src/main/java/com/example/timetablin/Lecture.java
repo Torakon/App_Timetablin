@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class Lecture implements Parcelable {
     private String lecTitle, startDate, endDate, startTime, endTime, lecCampus, lecBuilding, lecRoom;
@@ -25,7 +26,7 @@ public class Lecture implements Parcelable {
      * @param category - id of user input for entry category
      * @param id - id assigned to this entry
      */
-    public Lecture(String lecTitle, String startDate, String endDate, String startTime, String endTime, String lecCampus, String lecBuilding, String lecRoom, int category, int id){
+    Lecture(String lecTitle, String startDate, String endDate, String startTime, String endTime, String lecCampus, String lecBuilding, String lecRoom, int category, int id){
         this.lecTitle = lecTitle;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -41,32 +42,32 @@ public class Lecture implements Parcelable {
     /*
      * Get & Set methods for all variables
      */
-    public String getTitle() { return lecTitle; }
-    public void setTitle(String inputData) { this.lecTitle = inputData; }
-    public String getDate(boolean startEnd) { return (startEnd) ? endDate : startDate; } //boolean used to determine which date required: false for start, true for end
-    public void setDate(boolean startEnd, String inputData) {
+    String getTitle() { return lecTitle; }
+    void setTitle(String inputData) { this.lecTitle = inputData; }
+    String getDate(boolean startEnd) { return (startEnd) ? endDate : startDate; } //boolean used to determine which date required: false for start, true for end
+    void setDate(boolean startEnd, String inputData) {
         if (startEnd) {
             this.endDate = inputData;
         } else {
             this.startDate = inputData;
         }
     }
-    public String getTime(boolean startEnd) { return (startEnd) ? endTime : startTime; } //boolean used to determine which time required: false for start, true for end
-    public void setTime(boolean startEnd, String inputData) {
+    String getTime(boolean startEnd) { return (startEnd) ? endTime : startTime; } //boolean used to determine which time required: false for start, true for end
+    void setTime(boolean startEnd, String inputData) {
         if (startEnd) {
             this.endTime = inputData;
         } else {
             this.startTime = inputData;
         }
     }
-    public String getCampus() { return lecCampus; }
-    public void setCampus(String inputData) { this.lecCampus = inputData; }
-    public String getBuilding() { return lecBuilding; }
-    public void setBuilding(String inputData) { this.lecBuilding = inputData; }
-    public String getRoom() { return lecRoom; }
-    public void setRoom(String inputData) { this.lecRoom = inputData; }
-    public int getCategory(){ return category; }
-    public void setCategory(int inputData){ this.category = inputData; }
+    String getCampus() { return lecCampus; }
+    void setCampus(String inputData) { this.lecCampus = inputData; }
+    String getBuilding() { return lecBuilding; }
+    void setBuilding(String inputData) { this.lecBuilding = inputData; }
+    String getRoom() { return lecRoom; }
+    void setRoom(String inputData) { this.lecRoom = inputData; }
+    int getCategory(){ return category; }
+    void setCategory(int inputData){ this.category = inputData; }
     public int getId() { return id; }
     public void setId(int inputData) { this.id = inputData; }
 
@@ -74,11 +75,12 @@ public class Lecture implements Parcelable {
      * Parses the start day String in to a date format (dd/MM/yyyy) to calculate the day of the week
      * @return the id of the day of the week associated with startDay (0: Sunday)
      */
-    public int getStartDay() {
-        SimpleDateFormat ddMMyyyy = new SimpleDateFormat("dd/MM/yyyy");
+    int getStartDay() {
+        SimpleDateFormat ddMMyyyy = new SimpleDateFormat("dd/MM/yyyy", Locale.UK);
         Calendar c = Calendar.getInstance();
         try {
             Date result = ddMMyyyy.parse(startDate);
+            assert result!= null;
             c.setTime(result);
         } catch (ParseException e) {
             System.out.println("Error occurred parsing Date");
@@ -92,8 +94,8 @@ public class Lecture implements Parcelable {
      * @param other - input date from other entry
      * @return boolean is this entry set earlier than other entry?
      */
-    public boolean earlierTime(String other){
-        SimpleDateFormat HHmm = new SimpleDateFormat("HH:mm");
+    boolean earlierTime(String other){
+        SimpleDateFormat HHmm = new SimpleDateFormat("HH:mm", Locale.UK);
         try {
             Date thisTime = HHmm.parse(startTime);
             Date otherTime = HHmm.parse(other);
@@ -120,7 +122,7 @@ public class Lecture implements Parcelable {
         return 0;
     }
 
-    public Lecture(Parcel in) {
+    private Lecture(Parcel in) {
         lecTitle = in.readString();
         startDate = in.readString();
         endDate = in.readString();

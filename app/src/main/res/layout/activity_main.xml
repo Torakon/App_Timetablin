@@ -263,12 +263,6 @@
                     android:visibility="visible" />
             </LinearLayout>
 
-            <View
-                android:id="@+id/buffer"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:background="?android:attr/listDivider" />
-
         </LinearLayout>
     </ScrollView>
 

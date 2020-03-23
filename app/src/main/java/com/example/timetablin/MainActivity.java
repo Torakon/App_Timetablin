@@ -26,12 +26,11 @@ import java.nio.charset.StandardCharsets;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity { //TODO: Look into removing Buffer
+public class MainActivity extends AppCompatActivity {
 //TODO: WORK ON DOCUMENTATION
     private ArrayList<Lecture> saveData = new ArrayList<>();
     private LectureStringify ts = new LectureStringify();
     private String fileName = "events";
-    private SharedPreferences pref;
 
     /*
      * Deals with the launch of the Activity. In this case it loads saved entries, if the relevant
@@ -46,9 +45,10 @@ public class MainActivity extends AppCompatActivity { //TODO: Look into removing
         setContentView(R.layout.activity_main);
 
         //Checks for saved theme settings
+        SharedPreferences pref;
         pref = getSharedPreferences("TimetablinUPref", MODE_PRIVATE);
         if (pref.contains("dark")) {
-            Boolean dCheck = pref.getBoolean("dark",false);
+            boolean dCheck = pref.getBoolean("dark",false);
             if (dCheck) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             } else {
@@ -87,8 +87,6 @@ public class MainActivity extends AppCompatActivity { //TODO: Look into removing
         final ImageButton btnAdd = findViewById(R.id.addEntry);
         final ImageButton btnPref = findViewById(R.id.pref);
 
-        //btnAdd.setBackgroundColor(toRGB("FFFFFF"));
-
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,14 +118,6 @@ public class MainActivity extends AppCompatActivity { //TODO: Look into removing
         }
     }
 
-    public int toRGB(String sCol) {
-        int colorConvert = Integer.parseInt(sCol, 16);
-        int r = (colorConvert >> 16) & 0xFF;
-        int g = (colorConvert >> 8) & 0xFF;
-        int b = (colorConvert >> 0) & 0xFF;
-        return Color.rgb(r, g, b);
-    }
-
     /*
      * Handles results of called activities. requestCode 1 handles the creation of events,
      * requestCode 2 handles the editing of current events
@@ -142,8 +132,9 @@ public class MainActivity extends AppCompatActivity { //TODO: Look into removing
             if(resultCode == RESULT_OK) {
                 Bundle retrieve = data.getExtras();
                 Lecture entry = retrieve.getParcelable("data");
-                saveData.add(entry); //save to current entries collection
+
                 populateList(entry); //add to View
+                saveData.add(entry); //save to current entries collection
             }
         }
         if (requestCode == 2) {
@@ -155,7 +146,6 @@ public class MainActivity extends AppCompatActivity { //TODO: Look into removing
 
                 populateList(entry);
                 saveData.add(entry); //add to current entries collection
-
             } else if (resultCode == 2) { //handles the removal of an entry
                 Bundle retrieve = data.getExtras();
                 Lecture outdated = retrieve.getParcelable("data");
@@ -210,33 +200,17 @@ public class MainActivity extends AppCompatActivity { //TODO: Look into removing
         timeStart.setText(entry.getTime(false));
         timeEnd.setText(entry.getTime(true));
 
-        String colorSelect;
         switch(entry.getCategory()) { //switch to set background colour based on category
             case 0 :
-                if (pref.contains("guestColor")) {
-                    colorSelect = pref.getString("guestColor", "FF00FF");
-                    eventList.setBackgroundColor(toRGB(colorSelect));
-                } else {
-                    eventList.setBackgroundColor(getColor(R.color.colorGuestBack));
-                }
+                eventList.setBackgroundColor(getColor(R.color.colorGuestBack));
                 category.setText("G");
                 break;
             case 1 :
-                if (pref.contains("lectureColor")) {
-                    colorSelect = pref.getString("lectureColor", "FF00FF");
-                    eventList.setBackgroundColor(toRGB(colorSelect));
-                } else {
-                    eventList.setBackgroundColor(getColor(R.color.colorLectureback));
-                }
+                eventList.setBackgroundColor(getColor(R.color.colorLectureback));
                 category.setText("L");
                 break;
             case 2 :
-                if (pref.contains("societyColor")) {
-                    colorSelect = pref.getString("societyColor", "FF00FF");
-                    eventList.setBackgroundColor(toRGB(colorSelect));
-                } else {
-                    eventList.setBackgroundColor(getColor(R.color.colorSocietyBack));
-                }
+                eventList.setBackgroundColor(getColor(R.color.colorSocietyBack));
                 category.setText("S");
                 break;
             default :

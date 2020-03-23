@@ -46,4 +46,6 @@
     <string name="prefTitle">Settings</string>
     <string name="darkTitle">Dark theme</string>
     <string name="textColor">Colour Select</string>
+    <string name="hashtag">#</string>
+    <string name="colorHint">000000</string>
 </resources>
