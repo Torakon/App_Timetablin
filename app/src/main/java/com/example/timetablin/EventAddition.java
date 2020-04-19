@@ -106,7 +106,6 @@ public class EventAddition extends AppCompatActivity {
                 if ((edit.length() == 2 || edit.length() == 5) && (before != 1)) {
                     sDayView.append("/");
                 }
-                System.out.println(before);
             }
 
             @Override
