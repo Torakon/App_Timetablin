@@ -19,7 +19,7 @@ public class Lecture implements Parcelable {
      * @param startDate - User input for entry first session date
      * @param endDate - User input for entry last session date
      * @param startTime - User input for entry first session time
-     * @param endtime - User input for entry last session time
+     * @param endTime - User input for entry last session time
      * @param lecCampus - User input for entry campus location
      * @param lecBuilding - User input for entry building location
      * @param lecRoom - user input for entry room location
@@ -90,6 +90,21 @@ public class Lecture implements Parcelable {
             System.out.println("Error occurred parsing Date");
         }
         return c.get(Calendar.DAY_OF_WEEK);
+    }
+
+    boolean isOutOfDate() {
+        SimpleDateFormat ddMMyyyy = new SimpleDateFormat("dd/MM/yyyy", Locale.UK);
+        Calendar c = Calendar.getInstance();
+        Date current = c.getTime();
+        current.setTime(current.getTime() - 86400000); //minus one day in milliseconds
+
+        try {
+            Date eventEnd = ddMMyyyy.parse(endDate);
+            return eventEnd.compareTo(current) < 0;
+        } catch (ParseException e) {
+            System.out.println("Error occurred parsing date");
+        }
+        return false;
     }
 
     /*
