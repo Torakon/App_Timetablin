@@ -346,6 +346,9 @@ public class EventEdit extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "End time must be on or after the Start time.", Toast.LENGTH_SHORT).show();
             return false;
         }
+        if (isOutOfDate(eTimeCheck)) {
+            Toast.makeText(getApplicationContext(), "End date must be on or after Today's Date.", Toast.LENGTH_SHORT).show();
+        }
         return true;
     }
 
@@ -375,5 +378,19 @@ public class EventEdit extends AppCompatActivity {
             System.out.println("Error occurred parsing Time");
         }
         return true;
+    }
+
+    boolean isOutOfDate(String end) {
+        SimpleDateFormat ddMMyyyy = new SimpleDateFormat("dd/MM/yyyy", Locale.UK);
+        Calendar c = Calendar.getInstance();
+        Date current = c.getTime();
+        current.setTime(current.getTime() - 86400000);
+        try {
+            Date endDate = ddMMyyyy.parse(end);
+            return endDate.compareTo(current) < 0;
+        } catch (ParseException e) {
+            System.out.println("Error occurred parsing Date");
+        }
+        return false;
     }
 }

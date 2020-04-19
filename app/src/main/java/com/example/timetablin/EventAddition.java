@@ -21,7 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Random;
 
 public class EventAddition extends AppCompatActivity {
     private EditText titleView, sDayView, eDayView, roomView, noteView;
@@ -53,7 +52,6 @@ public class EventAddition extends AppCompatActivity {
         roomView = findViewById(R.id.enterRoom);
         catView = findViewById(R.id.catSpin);
         noteView = findViewById(R.id.enterNote);
-        //TODO: think about adding notes
         //TODO: look into implementing map functionality -- no user interaction, just display location based on location input?
 
         btnStart.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +106,7 @@ public class EventAddition extends AppCompatActivity {
                 if ((edit.length() == 2 || edit.length() == 5) && (before != 1)) {
                     sDayView.append("/");
                 }
+                System.out.println(before);
             }
 
             @Override
@@ -218,7 +217,6 @@ public class EventAddition extends AppCompatActivity {
         Calendar idGen = Calendar.getInstance();
         int id;
         id = Long.valueOf(idGen.getTimeInMillis()).intValue();
-        //TODO: Look into making this id more unique than just a random int. add bound to make it unique? in result handling .Main?
 
         Intent returnIntent = new Intent();
         returnIntent.putExtra("data", new Lecture(title, sDay, eDay, sTime, eTime, campus, building, room, cat, note, id));
@@ -288,6 +286,9 @@ public class EventAddition extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "End time must be on or after the Start time.", Toast.LENGTH_SHORT).show();
             return false;
         }
+        if (isOutOfDate(eTimeCheck)) {
+            Toast.makeText(getApplicationContext(), "End date must be on or after Today's Date.", Toast.LENGTH_SHORT).show();
+        }
         return true;
     }
 
@@ -317,6 +318,20 @@ public class EventAddition extends AppCompatActivity {
             System.out.println("Error occurred parsing Time");
         }
         return true;
+    }
+
+    boolean isOutOfDate(String end) {
+        SimpleDateFormat ddMMyyyy = new SimpleDateFormat("dd/MM/yyyy", Locale.UK);
+        Calendar c = Calendar.getInstance();
+        Date current = c.getTime();
+        current.setTime(current.getTime() - 86400000);
+        try {
+            Date endDate = ddMMyyyy.parse(end);
+            return endDate.compareTo(current) < 0;
+        } catch (ParseException e) {
+            System.out.println("Error occurred parsing Date");
+        }
+        return false;
     }
 }
 //https://developer.android.com/guide/components/fragments
