@@ -35,7 +35,7 @@ public class PrefActivity extends AppCompatActivity {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 }
             }
-        }); //TODO: save Dark Theme preference, maybe using Shared Preferences?
+        });
 
         //Potentially allow users to pick colors
     }
