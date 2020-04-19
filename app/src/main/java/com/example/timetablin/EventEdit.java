@@ -352,6 +352,12 @@ public class EventEdit extends AppCompatActivity {
         return true;
     }
 
+    /*
+     * Checks user input for startDate that is before endDate
+     * @param start
+     * @param end
+     * @return boolean
+     */
     boolean endDateAfter(String start, String end) {
         SimpleDateFormat ddMMyyyy = new SimpleDateFormat("dd/MM/yyyy", Locale.UK);
         Calendar c = Calendar.getInstance();
@@ -366,6 +372,12 @@ public class EventEdit extends AppCompatActivity {
         return true;
     }
 
+    /*
+     * Checks user input for startTime that is before endTime
+     * @param start
+     * @param end
+     * @return boolean
+     */
     boolean endTimeAfter(String start, String end) {
         SimpleDateFormat HHmm = new SimpleDateFormat("HH:mm", Locale.UK);
         Calendar c = Calendar.getInstance();
@@ -380,6 +392,11 @@ public class EventEdit extends AppCompatActivity {
         return true;
     }
 
+    /*
+     * Checks user input for endDate before current date (minus one day)
+     * @param end
+     * @return boolean true
+     */
     boolean isOutOfDate(String end) {
         SimpleDateFormat ddMMyyyy = new SimpleDateFormat("dd/MM/yyyy", Locale.UK);
         Calendar c = Calendar.getInstance();

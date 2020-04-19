@@ -47,6 +47,7 @@ public class Lecture implements Parcelable {
      */
     String getTitle() { return lecTitle; }
     void setTitle(String inputData) { this.lecTitle = inputData; }
+
     String getDate(boolean startEnd) { return (startEnd) ? endDate : startDate; } //boolean used to determine which date required: false for start, true for end
     void setDate(boolean startEnd, String inputData) {
         if (startEnd) {
@@ -55,6 +56,7 @@ public class Lecture implements Parcelable {
             this.startDate = inputData;
         }
     }
+
     String getTime(boolean startEnd) { return (startEnd) ? endTime : startTime; } //boolean used to determine which time required: false for start, true for end
     void setTime(boolean startEnd, String inputData) {
         if (startEnd) {
@@ -63,18 +65,23 @@ public class Lecture implements Parcelable {
             this.startTime = inputData;
         }
     }
+
     String getCampus() { return lecCampus; }
     void setCampus(String inputData) { this.lecCampus = inputData; }
+
     String getBuilding() { return lecBuilding; }
     void setBuilding(String inputData) { this.lecBuilding = inputData; }
+
     String getRoom() { return lecRoom; }
     void setRoom(String inputData) { this.lecRoom = inputData; }
+
     int getCategory(){ return category; }
     void setCategory(int inputData){ this.category = inputData; }
+
     String getNote() { return lecNote; }
     void setNote(String inputData) { this.lecNote = inputData; }
+
     public int getId() { return id; }
-    //public void setId(int inputData) { this.id = inputData; }
 
     /*
      * Parses the start day String in to a date format (dd/MM/yyyy) to calculate the day of the week
@@ -92,6 +99,10 @@ public class Lecture implements Parcelable {
         return c.get(Calendar.DAY_OF_WEEK);
     }
 
+    /*
+     * Checks for endDate before current date (minus one day)
+     * @return boolean
+     */
     boolean isOutOfDate() {
         SimpleDateFormat ddMMyyyy = new SimpleDateFormat("dd/MM/yyyy", Locale.UK);
         Calendar c = Calendar.getInstance();

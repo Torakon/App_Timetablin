@@ -155,6 +155,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*
+     * Removes a specified event from the activity view and then removes it from the entry array saveData.
+     * If no other events present in day then change visibility of the placeholder view.
+     * @param entry - specified Lecture entry
+     */
     public void removeEntryFromView(Lecture entry) {
         View oldEntry = findViewById(entry.getId());
         ViewGroup parent = (ViewGroup) oldEntry.getParent();
@@ -165,12 +170,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         saveData.removeIf(event -> (event.getId() == entry.getId()));
-        for (int i = 0; i < saveData.size(); i++) { //for(Lecture entr : saveData) causes ConcurrentModificationException
-            if (saveData.get(i).getId() == entry.getId()) {
-                saveData.remove(i); //remove outdated entry from current entries collection //TODO: Look into removeIf
-                break;
-            }
-        }
     }
 
     /*
@@ -198,8 +197,10 @@ public class MainActivity extends AppCompatActivity {
         TextView category = eventList.findViewById(R.id.catText);
 
         title.setText(entry.getTitle());
+
         String placeholder = entry.getCampus() + ", " + entry.getBuilding() + " " + entry.getRoom();
         location.setText(placeholder); //concatenating in setText produces warning hence placeholder
+
         timeStart.setText(entry.getTime(false));
         timeEnd.setText(entry.getTime(true));
 

@@ -37,7 +37,7 @@ public class DateFragment extends DialogFragment implements DatePickerDialog.OnD
     @Override
     public void onDateSet(DatePicker view, int y, int m, int d) {
         String formatD = String.format(Locale.UK, "%02d", d);
-        String formatM = String.format(Locale.UK, "%02d", m + 1); //month was returning 1 less than expected
+        String formatM = String.format(Locale.UK, "%02d", m + 1); //month was returning 1 less than initially expected
         boolean isThere = true;
         EditText selection = null;
         switch(input) {

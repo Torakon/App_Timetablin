@@ -48,7 +48,12 @@ public class PrefActivity extends AppCompatActivity {
         prefEdit.apply();
     }
 
-    private void setDarkCheck(Switch s) {
+    /*
+     * Adjusts the "Dark Mode" switch to be in line with the current theme. If the application is in dark mode
+     * then the switch will be set to the right.
+     * @param darkSwitch
+     */
+    private void setDarkCheck(Switch darkSwitch) {
         int mode = getApplicationContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         if(pref.contains("dark")) {
             dCheck = pref.getBoolean("dark", false);
@@ -57,6 +62,6 @@ public class PrefActivity extends AppCompatActivity {
             System.out.println("HAS NOT FOUND DARK SETTING");
             dCheck = (mode == Configuration.UI_MODE_NIGHT_YES);
         }
-        s.setChecked(dCheck);
+        darkSwitch.setChecked(dCheck);
     }
 }

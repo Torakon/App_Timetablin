@@ -113,6 +113,7 @@ public class EventAddition extends AppCompatActivity {
                 //do nothing
             }
         });
+
         eDayView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -158,6 +159,7 @@ public class EventAddition extends AppCompatActivity {
                 showTimePickerDialog(1);
             }
         });
+
         eTimeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,7 +201,7 @@ public class EventAddition extends AppCompatActivity {
 
     /*
      * Gathers user input and creates a new object of type Lecture before adding it to the return
-     * intent as an extra
+     * intent as an extra. On activity finish.
      */
     public void returnReply(){
         String title = titleView.getText().toString();
@@ -291,6 +293,12 @@ public class EventAddition extends AppCompatActivity {
         return true;
     }
 
+    /*
+     * Checks user input for startDate that is before endDate
+     * @param start
+     * @param end
+     * @return boolean
+     */
     boolean endDateAfter(String start, String end) {
         SimpleDateFormat ddMMyyyy = new SimpleDateFormat("dd/MM/yyyy", Locale.UK);
         Calendar c = Calendar.getInstance();
@@ -305,6 +313,12 @@ public class EventAddition extends AppCompatActivity {
         return true;
     }
 
+    /*
+     * Checks user input for startTime that is before endTime
+     * @param start
+     * @param end
+     * @return boolean
+     */
     boolean endTimeAfter(String start, String end) {
         SimpleDateFormat HHmm = new SimpleDateFormat("HH:mm", Locale.UK);
         Calendar c = Calendar.getInstance();
@@ -319,6 +333,11 @@ public class EventAddition extends AppCompatActivity {
         return true;
     }
 
+    /*
+     * Checks user input for endDate after or on current date
+     * @param end
+     * @return boolean true
+     */
     boolean isOutOfDate(String end) {
         SimpleDateFormat ddMMyyyy = new SimpleDateFormat("dd/MM/yyyy", Locale.UK);
         Calendar c = Calendar.getInstance();
