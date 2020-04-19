@@ -79,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
         }
         saveData = ts.stringToArray(toLoad);
 
+        saveData.removeIf(Lecture::isOutOfDate);
+
         if (!toLoad.equals("")) {
             for(Lecture count : saveData) {
                 populateList(count);
@@ -111,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        String toSave = ts.arrayToString(saveData); //TODO: Move this code so that the application saves more reliably
+        String toSave = ts.arrayToString(saveData);
         try (FileOutputStream fos = getApplicationContext().openFileOutput(fileName, Context.MODE_PRIVATE)) { //handle IO
             fos.write(toSave.getBytes());
         } catch (IOException e) {
@@ -129,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        saveData.removeIf(Lecture::isOutOfDate);
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 Bundle retrieve = data.getExtras();
@@ -139,19 +142,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if (requestCode == 2) {
+            Bundle retrieve = data.getExtras();
+            Lecture entry = retrieve.getParcelable("data");
             if(resultCode == RESULT_OK) {
-                Bundle retrieve = data.getExtras();
-                Lecture entry = retrieve.getParcelable("data");
-
                 removeEntryFromView(entry);
 
                 populateList(entry);
                 saveData.add(entry); //add to current entries collection
             } else if (resultCode == 2) { //handles the removal of an entry
-                Bundle retrieve = data.getExtras();
-                Lecture outdated = retrieve.getParcelable("data");
-
-                removeEntryFromView(outdated);
+                removeEntryFromView(entry);
             }
         }
     }
@@ -161,10 +160,11 @@ public class MainActivity extends AppCompatActivity {
         ViewGroup parent = (ViewGroup) oldEntry.getParent();
         parent.removeView(oldEntry); //remove the entry marked for deletion from View
 
-        if(parent.getChildCount() == 1) {
+        if (parent.getChildCount() == 1) {
             parent.getChildAt(0).setVisibility(View.VISIBLE); //If relevant, replaces "Nothing Scheduled" Text View
         }
 
+        saveData.removeIf(event -> (event.getId() == entry.getId()));
         for (int i = 0; i < saveData.size(); i++) { //for(Lecture entr : saveData) causes ConcurrentModificationException
             if (saveData.get(i).getId() == entry.getId()) {
                 saveData.remove(i); //remove outdated entry from current entries collection //TODO: Look into removeIf
@@ -183,12 +183,14 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View eventList = inflater.inflate(R.layout.event, null, false); //inflates event.xml to add data and insert into view
         eventList.setId(entry.getId());
+
         LinearLayout.LayoutParams margin = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
         margin.setMargins(0,10,0,0);
         eventList.setLayoutParams(margin);
+
         TextView title = eventList.findViewById(R.id.lecTitle);
         TextView location = eventList.findViewById(R.id.lecLocation);
         TextView timeStart = eventList.findViewById(R.id.lecTime);
