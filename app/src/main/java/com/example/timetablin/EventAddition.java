@@ -173,24 +173,27 @@ public class EventAddition extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
                 Spinner buildingView = findViewById(R.id.buildingSpin);
                 ArrayAdapter<CharSequence> newSpin;
-                switch(pos){
-                    case 0 :
-                        newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.granBuilding, android.R.layout.simple_spinner_item);
-                        break;
-                    case 1 :
-                        newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.eastBuilding, android.R.layout.simple_spinner_item);
-                        break;
-                    case 2 :
-                        newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.falmBuilding, android.R.layout.simple_spinner_item);
-                        break;
-                    case 3 :
-                        newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.moulBuilding, android.R.layout.simple_spinner_item);
-                        break;
-                    default :
-                        newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.granBuilding, android.R.layout.simple_spinner_item);
-                        System.out.println("Invalid Campus selected.");
+                if (v != null) {
+                    switch (pos) {
+                        case 0:
+                            newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.granBuilding, android.R.layout.simple_spinner_item);
+                            break;
+                        case 1:
+                            newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.eastBuilding, android.R.layout.simple_spinner_item);
+                            break;
+                        case 2:
+                            newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.falmBuilding, android.R.layout.simple_spinner_item);
+                            break;
+                        case 3:
+                            newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.moulBuilding, android.R.layout.simple_spinner_item);
+                            break;
+                        default:
+                            newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.granBuilding, android.R.layout.simple_spinner_item);
+                            System.out.println("Invalid Campus selected.");
+
+                    }
+                    buildingView.setAdapter(newSpin);
                 }
-                buildingView.setAdapter(newSpin);
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -287,8 +290,9 @@ public class EventAddition extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "End time must be on or after the Start time.", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (isOutOfDate(eTimeCheck)) {
+        if (isOutOfDate(eDayCheck)) {
             Toast.makeText(getApplicationContext(), "End date must be on or after Today's Date.", Toast.LENGTH_SHORT).show();
+            return false;
         }
         return true;
     }
@@ -345,7 +349,7 @@ public class EventAddition extends AppCompatActivity {
         current.setTime(current.getTime() - 86400000);
         try {
             Date endDate = ddMMyyyy.parse(end);
-            return endDate.compareTo(current) < 0;
+            return (endDate.compareTo(current) < 0);
         } catch (ParseException e) {
             System.out.println("Error occurred parsing Date");
         }

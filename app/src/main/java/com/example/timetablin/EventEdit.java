@@ -188,25 +188,25 @@ public class EventEdit extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
                 buildingView = findViewById(R.id.buildingSpin);
                 ArrayAdapter<CharSequence> newSpin;
-                switch(pos){
-                    case 0 :
-                        newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.granBuilding, android.R.layout.simple_spinner_item);
+                switch (pos) {
+                    case 0:
+                        newSpin = ArrayAdapter.createFromResource(campusView.getContext(), R.array.granBuilding, android.R.layout.simple_spinner_item);
                         break;
-                    case 1 :
-                        newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.eastBuilding, android.R.layout.simple_spinner_item);
+                    case 1:
+                        newSpin = ArrayAdapter.createFromResource(campusView.getContext(), R.array.eastBuilding, android.R.layout.simple_spinner_item);
                         break;
-                    case 2 :
-                        newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.falmBuilding, android.R.layout.simple_spinner_item);
+                    case 2:
+                        newSpin = ArrayAdapter.createFromResource(campusView.getContext(), R.array.falmBuilding, android.R.layout.simple_spinner_item);
                         break;
-                    case 3 :
-                        newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.moulBuilding, android.R.layout.simple_spinner_item);
+                    case 3:
+                        newSpin = ArrayAdapter.createFromResource(campusView.getContext(), R.array.moulBuilding, android.R.layout.simple_spinner_item);
                         break;
-                    default :
-                        newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.granBuilding, android.R.layout.simple_spinner_item);
+                    default:
+                        newSpin = ArrayAdapter.createFromResource(campusView.getContext(), R.array.granBuilding, android.R.layout.simple_spinner_item);
                         System.out.println("Invalid Campus selected.");
                 }
                 buildingView.setAdapter(newSpin);
-                if(campusView.getSelectedItem().toString().equals(entry.getCampus())){
+                if (campusView.getSelectedItem().toString().equals(entry.getCampus())) {
                     buildingView.setSelection(newSpin.getPosition(entry.getBuilding()));
                 }
             }
@@ -289,6 +289,7 @@ public class EventEdit extends AppCompatActivity {
      * @param input - variable to be set as argument and passed to fragment
      */
     public void showDatePickerDialog(int input) {
+        campusView.setSelection(0);
         Bundle bundle = new Bundle();
         bundle.putInt("input", input);
         DialogFragment newFragment = new DateFragment();
@@ -346,8 +347,9 @@ public class EventEdit extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "End time must be on or after the Start time.", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (isOutOfDate(eTimeCheck)) {
+        if (isOutOfDate(eDayCheck)) {
             Toast.makeText(getApplicationContext(), "End date must be on or after Today's Date.", Toast.LENGTH_SHORT).show();
+            return false;
         }
         return true;
     }
