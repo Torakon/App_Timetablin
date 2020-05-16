@@ -109,6 +109,7 @@ public class EventEdit extends AppCompatActivity {
                     int mon = Integer.parseInt(edit.substring(3, 5));
                     int year = Integer.parseInt(edit.substring(6, 10));
 
+                    //format to UK date standard if user does not use picker
                     if (mon > 12) { mon = 12; }
                     c.set(Calendar.MONTH, mon - 1);
                     if (year < c.get(Calendar.YEAR) - 1) { year = c.get(Calendar.YEAR) - 1; }

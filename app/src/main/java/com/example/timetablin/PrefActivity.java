@@ -55,9 +55,7 @@ public class PrefActivity extends AppCompatActivity {
         int mode = getApplicationContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         if(pref.contains("dark")) {
             dCheck = pref.getBoolean("dark", false);
-            System.out.println("FOUND DARK SETTING: " + dCheck);
         } else {
-            System.out.println("HAS NOT FOUND DARK SETTING");
             dCheck = (mode == Configuration.UI_MODE_NIGHT_YES);
         }
         darkSwitch.setChecked(dCheck);
