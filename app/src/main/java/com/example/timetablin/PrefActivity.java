@@ -36,8 +36,6 @@ public class PrefActivity extends AppCompatActivity {
                 }
             }
         });
-
-        //Potentially allow users to pick colors
     }
 
     @Override

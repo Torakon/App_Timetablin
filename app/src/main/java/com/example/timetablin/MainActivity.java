@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
-//TODO: WORK ON DOCUMENTATION
     private ArrayList<Lecture> saveData = new ArrayList<>();
     private LectureStringify ts = new LectureStringify();
     private String fileName = "events";
@@ -204,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
         timeStart.setText(entry.getTime(false));
         timeEnd.setText(entry.getTime(true));
 
-        switch(entry.getCategory()) { //switch to set background colour based on category
+        switch(entry.getCategory()) { //switchCase to set background colour based on category
             case 0 :
                 eventList.setBackgroundColor(getColor(R.color.colorGuestBack));
                 category.setText("G");
@@ -227,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), EventEdit.class);
-                intent.putExtra("olddata", entry); //so we can remove the correct entry
+                intent.putExtra("olddata", entry); //so we can remove/edit the correct entry on result
                 startActivityForResult(intent, 2);
             }
         });
@@ -238,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
             case Calendar.SUNDAY :
                 listDay = findViewById(R.id.sundayList);
                 nothing = findViewById(R.id.nothingBoxSu);
-                if (nothing.getVisibility() == View.VISIBLE) { //removes "Nothing Scheduled" TextView
+                if (nothing.getVisibility() == View.VISIBLE) { //removes "Nothing Scheduled" TextView from screen
                     nothing.setVisibility(View.GONE);
                 }
                 break;
@@ -298,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
                     listDay.addView(eventList, i);
                     break;
                 }
-                if (i == (listDay.getChildCount()-2)) {
+                if (i == (listDay.getChildCount()-2)) { //if this is the latest one, add to end of list
                     listDay.addView(eventList, i+1);
                     break;
                 }

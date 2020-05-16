@@ -52,7 +52,6 @@ public class EventAddition extends AppCompatActivity {
         roomView = findViewById(R.id.enterRoom);
         catView = findViewById(R.id.catSpin);
         noteView = findViewById(R.id.enterNote);
-        //TODO: look into implementing map functionality -- no user interaction, just display location based on location input?
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +90,7 @@ public class EventAddition extends AppCompatActivity {
                     int mon = Integer.parseInt(edit.substring(3, 5));
                     int year = Integer.parseInt(edit.substring(6, 10));
 
+                    //format to UK date standard if user does not use picker
                     if (mon > 12) { mon = 12; }
                     c.set(Calendar.MONTH, mon - 1);
                     if (year < c.get(Calendar.YEAR) - 1) { year = c.get(Calendar.YEAR) - 1; }
@@ -130,6 +130,7 @@ public class EventAddition extends AppCompatActivity {
                     int mon = Integer.parseInt(edit.substring(3, 5));
                     int year = Integer.parseInt(edit.substring(6, 10));
 
+                    //format to UK date standard if user does not use picker
                     if (mon > 12) { mon = 12; }
                     c.set(Calendar.MONTH, mon - 1);
                     if (year < c.get(Calendar.YEAR) - 1) { year = c.get(Calendar.YEAR) - 1; }
@@ -173,28 +174,26 @@ public class EventAddition extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
                 Spinner buildingView = findViewById(R.id.buildingSpin);
                 ArrayAdapter<CharSequence> newSpin;
-                if (v != null) {
                     switch (pos) {
                         case 0:
-                            newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.granBuilding, android.R.layout.simple_spinner_item);
+                            newSpin = ArrayAdapter.createFromResource(campusView.getContext(), R.array.granBuilding, android.R.layout.simple_spinner_item);
                             break;
                         case 1:
-                            newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.eastBuilding, android.R.layout.simple_spinner_item);
+                            newSpin = ArrayAdapter.createFromResource(campusView.getContext(), R.array.eastBuilding, android.R.layout.simple_spinner_item);
                             break;
                         case 2:
-                            newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.falmBuilding, android.R.layout.simple_spinner_item);
+                            newSpin = ArrayAdapter.createFromResource(campusView.getContext(), R.array.falmBuilding, android.R.layout.simple_spinner_item);
                             break;
                         case 3:
-                            newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.moulBuilding, android.R.layout.simple_spinner_item);
+                            newSpin = ArrayAdapter.createFromResource(campusView.getContext(), R.array.moulBuilding, android.R.layout.simple_spinner_item);
                             break;
                         default:
-                            newSpin = ArrayAdapter.createFromResource(v.getContext(), R.array.granBuilding, android.R.layout.simple_spinner_item);
+                            newSpin = ArrayAdapter.createFromResource(campusView.getContext(), R.array.granBuilding, android.R.layout.simple_spinner_item);
                             System.out.println("Invalid Campus selected.");
-
                     }
                     buildingView.setAdapter(newSpin);
-                }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 //do nothing
@@ -220,10 +219,10 @@ public class EventAddition extends AppCompatActivity {
 
         Calendar idGen = Calendar.getInstance();
         int id;
-        id = Long.valueOf(idGen.getTimeInMillis()).intValue();
+        id = Long.valueOf(idGen.getTimeInMillis()).intValue(); //generate id based on time
 
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("data", new Lecture(title, sDay, eDay, sTime, eTime, campus, building, room, cat, note, id));
+        returnIntent.putExtra("data", new Lecture(title, sDay, eDay, sTime, eTime, campus, building, room, cat, note, id)); //create new entry and send back as result
         setResult(RESULT_OK, returnIntent);
         finish();
     }
@@ -356,5 +355,3 @@ public class EventAddition extends AppCompatActivity {
         return false;
     }
 }
-//https://developer.android.com/guide/components/fragments
-//https://developer.android.com/guide/topics/ui/controls/pickers
