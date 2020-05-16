@@ -52,7 +52,7 @@ public class EventEdit extends AppCompatActivity {
 
         ImageButton btnStart = findViewById(R.id.pickStartDate);
         ImageButton btnEnd = findViewById(R.id.pickEndDate);
-        ImageButton toHide = findViewById(R.id.finalEvent);
+        ImageButton btntoHide = findViewById(R.id.finalEvent);
         ImageButton btnSave = findViewById(R.id.save);
         ImageButton btnDelete = findViewById(R.id.delete);
 
@@ -63,7 +63,7 @@ public class EventEdit extends AppCompatActivity {
             System.out.println("NullPointerException fetching 'old' entry for edit.");
         }
 
-        toHide.setVisibility(View.GONE);
+        btntoHide.setVisibility(View.GONE);
         btnSave.setVisibility(View.VISIBLE);
         btnDelete.setVisibility(View.VISIBLE);
         btnStart.setOnClickListener(new View.OnClickListener() {
@@ -116,11 +116,11 @@ public class EventEdit extends AppCompatActivity {
                     else if (year > c.get(Calendar.YEAR) + 1) { year = c.get(Calendar.YEAR) + 1; }
                     c.set(Calendar.YEAR, year);
                     if (day > c.getActualMaximum(Calendar.DATE)) { day = c.getActualMaximum(Calendar.DATE); }
-                    String placeholder = String.format(Locale.UK, "%02d%02d%02d", day, mon, year);
-                    placeholder = String.format("%s/%s/%s", placeholder.substring(0, 2),
-                            placeholder.substring(2, 4),
-                            placeholder.substring(4, 8));
-                    sDayView.setText(placeholder);
+                    String strDate = String.format(Locale.UK, "%02d%02d%02d", day, mon, year);
+                    strDate = String.format("%s/%s/%s", strDate.substring(0, 2),
+                            strDate.substring(2, 4),
+                            strDate.substring(4, 8));
+                    sDayView.setText(strDate);
                 }
                 if ((edit.length() == 2 || edit.length() == 5) && (before != 1)) {
                     sDayView.append("/");
@@ -155,11 +155,11 @@ public class EventEdit extends AppCompatActivity {
                     else if (year > c.get(Calendar.YEAR) + 1) { year = c.get(Calendar.YEAR) + 1; }
                     c.set(Calendar.YEAR, year);
                     if (day > c.getActualMaximum(Calendar.DATE)) { day = c.getActualMaximum(Calendar.DATE); }
-                    String placeholder = String.format(Locale.UK, "%02d%02d%02d", day, mon, year);
-                    placeholder = String.format("%s/%s/%s", placeholder.substring(0, 2),
-                            placeholder.substring(2, 4),
-                            placeholder.substring(4, 8));
-                    eDayView.setText(placeholder);
+                    String strDate = String.format(Locale.UK, "%02d%02d%02d", day, mon, year);
+                    strDate = String.format("%s/%s/%s", strDate.substring(0, 2),
+                            strDate.substring(2, 4),
+                            strDate.substring(4, 8));
+                    eDayView.setText(strDate);
                 }
                 if ((edit.length() == 2 || edit.length() == 5) && (before != 1)) {
                     eDayView.append("/");
@@ -292,10 +292,10 @@ public class EventEdit extends AppCompatActivity {
      */
     public void showDatePickerDialog(int input) {
         campusView.setSelection(0);
-        Bundle bundle = new Bundle();
-        bundle.putInt("input", input);
+        Bundle args = new Bundle();
+        args.putInt("input", input);
         DialogFragment newFragment = new DateFragment();
-        newFragment.setArguments(bundle);
+        newFragment.setArguments(args);
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
@@ -304,10 +304,10 @@ public class EventEdit extends AppCompatActivity {
      * @param input - variable to be set as argument and passed to fragment
      */
     public void showTimePickerDialog(int input) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("input", input);
+        Bundle args = new Bundle();
+        args.putInt("input", input);
         DialogFragment newFragment = new TimeFragment();
-        newFragment.setArguments(bundle);
+        newFragment.setArguments(args);
         newFragment.show(getSupportFragmentManager(), "timePicker");
     }
 

@@ -12,11 +12,11 @@ class LectureStringify {
     String arrayToString(ArrayList<Lecture> saveData) {
         //String result = "";
         StringBuilder result = new StringBuilder();
-        for(Lecture entr : saveData) {
-            result.append(entr.getTitle()).append("¬").append(entr.getDate(false)).append("¬").append(entr.getDate(true)).append("¬")
-                    .append(entr.getTime(false)).append("¬").append(entr.getTime(true)).append("¬").append(entr.getCampus()).append("¬")
-                    .append(entr.getBuilding()).append("¬").append(entr.getRoom()).append("¬").append(entr.getCategory()).append("¬").append(entr.getNote())
-                    .append("¬").append(entr.getId()).append("¬");
+        for(Lecture event : saveData) {
+            result.append(event.getTitle()).append("¬").append(event.getDate(false)).append("¬").append(event.getDate(true)).append("¬")
+                    .append(event.getTime(false)).append("¬").append(event.getTime(true)).append("¬").append(event.getCampus()).append("¬")
+                    .append(event.getBuilding()).append("¬").append(event.getRoom()).append("¬").append(event.getCategory()).append("¬").append(event.getNote())
+                    .append("¬").append(event.getId()).append("¬");
         }
     return result.toString();
     }

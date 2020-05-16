@@ -197,8 +197,8 @@ public class MainActivity extends AppCompatActivity {
 
         title.setText(entry.getTitle());
 
-        String placeholder = entry.getCampus() + ", " + entry.getBuilding() + " " + entry.getRoom();
-        location.setText(placeholder); //concatenating in setText produces warning hence placeholder
+        String strLocation = entry.getCampus() + ", " + entry.getBuilding() + " " + entry.getRoom();
+        location.setText(strLocation); //concatenating in setText produces warning hence strLocation
 
         timeStart.setText(entry.getTime(false));
         timeEnd.setText(entry.getTime(true));
